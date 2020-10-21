@@ -7,6 +7,8 @@ program huertaDeToni {
 	game.width(15)
 	game.height(15)
 	
+	const plantasEnElJuego = []
+	
 	// Configuramos una imagen de fondo, que se repite para cada celda del tablero.
 	game.ground("tierra.png")
 	
@@ -31,5 +33,35 @@ program huertaDeToni {
 	 */
 	(1..13).forEach { x => game.addVisualIn(new Maiz(), game.at(x, 5)) }
 		
+	keyboard.up().onPressDo { toni. moverArriba() }
+	
+	keyboard.down().onPressDo{  toni.moverAbajo() }
+	
+	keyboard.left().onPressDo{ toni.moverALaIzquierda() }
+	
+	keyboard.right().onPressDo{ toni.moverALaDerecha() }
+	
+	/* duda si al sembrar y agregar, cuando las riegue se vea el cambio en el tablero, tambien la posicion del maiz
+	 * 
+	 * duda sobre var maiz si no habria problemas por el nombre, si se genera un problema, modificar para que se cree sin generar una referencia
+	 */
+	keyboard.m().onPressDo ({
+		var maiz = new Maiz()
+		toni.agregarPlanta(maiz)
+		game.addVisual(maiz)
+	})
+	
+	keyboard.t().onPressDo ({
+		var trigo = new Trigo()
+		toni.agregarPlanta(trigo)
+		game.addVisual(trigo)
+	})
+	
+	keyboard.o().onPressDo ({
+		var tomaco = new Tomaco()
+		toni.agregarPlanta(tomaco)
+		game.addVisual(tomaco)
+	})
+	
 	game.start()
 }
