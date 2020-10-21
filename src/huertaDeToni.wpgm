@@ -10,7 +10,13 @@ program huertaDeToni {
 	const plantasEnElJuego = []
 	
 	// Configuramos una imagen de fondo, que se repite para cada celda del tablero.
-	game.ground("tierra.png")
+	
+	/*
+	 * para pc tomy C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/tierra.png
+	 * 
+	 * para otras pc tierra.png
+	 */
+	game.ground("C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/tierra.png")
 	
 	// Agregamos al amigo Toni.
 	game.addVisual(toni)
@@ -45,22 +51,27 @@ program huertaDeToni {
 	 * 
 	 * duda sobre var maiz si no habria problemas por el nombre, si se genera un problema, modificar para que se cree sin generar una referencia
 	 */
+	
+	
 	keyboard.m().onPressDo ({
 		var maiz = new Maiz()
 		toni.agregarPlanta(maiz)
-		game.addVisual(maiz)
+		game.addVisualIn(maiz,toni.position())
 	})
 	
+	//tira error de que no entiende position
 	keyboard.t().onPressDo ({
 		var trigo = new Trigo()
 		toni.agregarPlanta(trigo)
-		game.addVisual(trigo)
+		
+		game.addVisualIn(trigo,toni.position())
 	})
 	
+	//tira error de que no entiende position
 	keyboard.o().onPressDo ({
 		var tomaco = new Tomaco()
 		toni.agregarPlanta(tomaco)
-		game.addVisual(tomaco)
+		game.addVisualIn(tomaco,toni.position())
 	})
 	
 	game.start()

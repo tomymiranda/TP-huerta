@@ -1,7 +1,13 @@
 import wollok.game.*
 
 object toni {
-	const property image = "toni.png"
+	
+	/*
+	 * para que levante la imagen en compu tomy: C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/toni.png 
+	 * 
+	 * en otras pc: toni.png
+	 */
+	const property image = "C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/toni.png"
 	var property position = game.at(3, 3)
 	var property monedas = 0
 	
