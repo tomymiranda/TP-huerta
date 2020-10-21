@@ -12,6 +12,7 @@ object toni {
 	var property monedas = 0
 	
 	const plantasQueSembro = []
+	const plantasQueCosecho = []
 	
 	// Pegar acá todo lo que tenían de Toni en la etapa 1
 
@@ -36,7 +37,7 @@ object toni {
 	}
 
 	method regarTodas(){
-		plantasQueSembro.forEach({ i => i.hidratar()})
+		plantasQueSembro.forEach({ i => i.regar()})
 	}
 
 }

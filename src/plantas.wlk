@@ -17,14 +17,22 @@ class Maiz {
 		return "C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/maiz_bebe.png"
 	}
 
-	// el ejercicio dice que se genera ganancia por la venta asique cada una debe tener una
+	/* 
+	 * comentario1: el ejercicio dice que se genera ganancia por la venta asique cada una debe tener una
+	 *
+	 * comentario2: los metodos de aca para abajo los podriamos hacer con herencia ya que son iguales para los 3 porq son plantas,
+	 * 				sino no hace falta 
+	 */ 
 	method ganancia() {
 		return 50
 	}
 
-	// aumenta la hidratacion en 10
-	method hidratar() {
+	method regar() {
 		estadoDeHidratacion += 10
+	}
+
+	method estadoDeHidratacion(){
+		return estadoDeHidratacion
 	}
 
 }
@@ -49,10 +57,13 @@ class Trigo {
 		return 150
 	}
 
-	method hidratar() {
+	method regar() {
 		estadoDeHidratacion += 10
 	}
 
+	method estadoDeHidratacion(){
+		return estadoDeHidratacion
+	}
 }
 
 class Tomaco {
@@ -77,10 +88,13 @@ class Tomaco {
 		return 80
 	}
 
-	method hidratar() {
+	method regar() {
 		estadoDeHidratacion += 10
 	}
 
+	method estadoDeHidratacion(){
+		return estadoDeHidratacion
+	}
 	
 }
 
