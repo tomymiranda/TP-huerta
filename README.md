@@ -5,7 +5,7 @@ Toni es un amigo youtuber que se gana la vida cultivando plantas de distintas es
 
 Nuestro objetivo es construir un juego en el que podamos controlar a Toni, utilizando el teclado para moverlo alrededor del tablero. Las plantas y el comportamiento de Toni son los los que se encuentran en la Etapa 1 - sembrar, regar, vender y consultas a Toni de enunciado, en la segunda le agregaremos algunas cosas para convertirlo en un juego.
 
-##Etapa 1
+## Etapa 1
 En esta primera parte vamos a concentrarnos solamente en programar las clases y objetos necesarios para modelar los siguientes comportamientos de Toni.
 
 Sembrar
@@ -60,7 +60,7 @@ cuantoHayParaCeliacos(): indica cuántas plantas de las sembradas podrían ser c
 convieneRegar(): indica si alguna de las plantas sembradas aún no está lista para la cosecha - porque en ese caso convendría regar para acelerar el proceso.
 
 
-##Etapa 2 - Game
+## Etapa 2 - Game
 Caminar y sembrar
 Configurar las siguientes teclas para controlar a Toni:
 
@@ -112,7 +112,7 @@ Recordá que se pueden concatenar Strings utilizando el +:
 "Me quedan 3 plantas"
 Atenti Hasta acá lo obligatorio para aprobar el TP. Lo que sigue debajo son bonus que pueden hacer para sumar nota (y, ponele, divertirse un rato). Los pueden hacer en cualquier orden.
 
-##BONUS
+## BONUS
 Se incluyen 5 bonus a desarrollar para complementar el desarrollo,
 
 1- La Pachamama
