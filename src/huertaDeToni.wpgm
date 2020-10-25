@@ -15,10 +15,11 @@ program huertaDeToni {
 	 * 
 	 * para otras pc tierra.png
 	 */
-	game.ground("C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/tierra.png")
+	//game.ground("tierra.png")
 	
 	// Agregamos al amigo Toni.
 	game.addVisual(toni)
+	
 	
 	/*
 	 * Acá usamos addVisualIn en vez de addVisual, y por esto 
@@ -37,9 +38,8 @@ program huertaDeToni {
 	 * De yapa, mostramos cómo agregar varios objetos de una utilizando
 	 * un rango (1..13), que equivale a la lista [1, 2, 3, ..., 13].
 	 */
-	(1..13).forEach { x => game.addVisualIn(new Maiz(), game.at(x, 5)) }
-		
-	keyboard.up().onPressDo { toni. moverArriba() }
+
+	keyboard.up().onPressDo { toni.moverArriba() }
 	
 	keyboard.down().onPressDo{  toni.moverAbajo() }
 	
@@ -52,31 +52,36 @@ program huertaDeToni {
 	 * duda sobre var maiz si no habria problemas por el nombre, si se genera un problema, modificar para que se cree sin generar una referencia
 	 */
 	
-	
-	keyboard.m().onPressDo ({
+	keyboard.m().onPressDo{
 		var maiz = new Maiz()
 		toni.agregarPlanta(maiz)
 		game.addVisualIn(maiz,toni.position())
-	})
+	}
 	
-	
-	keyboard.t().onPressDo ({
+	keyboard.t().onPressDo{
 		var trigo = new Trigo()
 		toni.agregarPlanta(trigo)
-		
 		game.addVisualIn(trigo,toni.position())
-	})
+	}
 	
-	
-	keyboard.o().onPressDo ({
+	keyboard.o().onPressDo{
 		var tomaco = new Tomaco()
 		toni.agregarPlanta(tomaco)
 		game.addVisualIn(tomaco,toni.position())
-	})
+	}
 	
-	keyboard.a().onPressDo({toni.regarTodas()})
+	keyboard.a().onPressDo{toni.regarLasPlantas()}
+
+	keyboard.r().onPressDo{game.colliders(toni).first().regar()}
 	
-	keyboard.l().onPressDo({})
+	keyboard.x().onPressDo{toni.cosecharTodo() }
+
+	keyboard.c().onPressDo{toni.cosechar(game.colliders(toni).first())}
+	
+	keyboard.v().onPressDo{toni.venderCosecha()}
+	
+	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas"
+		+ " me quedan " + toni.plantasQueCosecho().size() + " plantas para vender"	) }
 	
 	game.start()
 }
