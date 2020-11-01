@@ -1,0 +1,14 @@
+import toni.*
+import wollok.game.*
+
+test "toni cambia de posicion" {
+	toni.moverALaDerecha()
+	toni.moverALaDerecha()
+	toni.moverArriba()
+	toni.moverArriba()
+	toni.moverAbajo()
+	toni.moverALaIzquierda()
+	
+	const a = game.at(4,4)
+	assert.equals(a,toni.position())
+}

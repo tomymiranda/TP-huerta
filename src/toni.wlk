@@ -4,7 +4,7 @@ import plantas.*
 object toni {
 	
 	/*
-	 * para que levante la imagen en compu tomy: C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/toni.png 
+	 * 
 	 * 
 	 * en otras pc: toni.png
 	 */
