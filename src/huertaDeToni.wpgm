@@ -83,5 +83,13 @@ program huertaDeToni {
 	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas"
 		+ " me quedan " + toni.plantasQueCosecho().size() + " plantas para vender"	) }
 	
+	keyboard.f().onPressDo{ pachamama.fumigar() }
+	
+	keyboard.l().onPressDo{ pachamama.llover() }
+	
+	
+	keyboard.y().onPressDo{ game.say(toni, toni.cantidadPlantasSembradas()) }
+	
+	
 	game.start()
 }

@@ -12,8 +12,8 @@ object toni {
 	var property position = game.at(3, 3)
 	var property monedas = 0
 	
-	const property plantasQueSembro = []
-	const property plantasQueCosecho = []
+	var property plantasQueSembro = []
+	var property plantasQueCosecho = []
 	
 	// Pegar acá todo lo que tenían de Toni en la etapa 1
 
@@ -73,5 +73,15 @@ object toni {
 	method convieneRegar(){
 		return plantasQueSembro.any( { p => not p.estaListaParaCosechar() } )
 	}
-
+	method ofrecerOfrenda(){
+		const c = plantasQueSembro.anyOne()
+		game.removeVisual(c)
+	}
+	/*method borrar(){
+		const c = plantasQueSembro.anyOne()
+		plantasQueSembro.remove(c)
+	}*/
+	method cantidadPlantasSembradas(){
+		return plantasQueSembro.size()
+	}
 }

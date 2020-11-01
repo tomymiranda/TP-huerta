@@ -1,11 +1,16 @@
+import wollok.game.*
+import toni.*
+
 object pachamama {
+	var nivelAgradecimiento = 10
+	
 	method image() {
-		/*
-		 * para tomy pc C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/pachamama-agradecida.png
-		 *
-		 * para otras pc: pachamama-agradecida.png
-		 */		
-		
-		return "pachamama-agradecida.png"
+		if(self.estaAgradecida()){ return "pachamama-agradecida.png"}
+	 	else{ return "pachamama-noagradecida.png" }
 	}
+	
+	method llover(){ nivelAgradecimiento += 5 } //puede ser de toni
+	method fumigar(){ nivelAgradecimiento = 0 }
+	method estaAgradecida(){ return nivelAgradecimiento >= 10 }
+	/*method ofrecerOfrenda(){  toni.borrar() }*/
 }
