@@ -1,8 +1,9 @@
 import wollok.game.*
 import plantas.*
+import pachamama.*
 
 object toni {
-	
+
 	/*
 	 * 
 	 * 
@@ -11,77 +12,91 @@ object toni {
 	const property image = "toni.png"
 	var property position = game.at(3, 3)
 	var property monedas = 0
-	
 	var property plantasQueSembro = []
 	var property plantasQueCosecho = []
-	
-	// Pegar acá todo lo que tenían de Toni en la etapa 1
 
-	method moverALaDerecha(){
+	// Pegar acá todo lo que tenían de Toni en la etapa 1
+	
+	method coordenadaX(){
+		return position.x()
+	}
+	
+	method coordenadaY(){
+		return position.y()
+	}
+	
+	method cambiarCoordenada(a,b){
+		position = game.at(a,b)
+	}
+	
+	method moverALaDerecha() {
 		self.position(self.position().right(1))
 	}
 
-	method moverALaIzquierda(){
+	method moverALaIzquierda() {
 		self.position(self.position().left(1))
 	}
 
-	method moverArriba(){
+	method moverArriba() {
 		self.position(self.position().up(1))
 	}
 
-	method moverAbajo(){
+	method moverAbajo() {
 		self.position(self.position().down(1))
 	}
-	
-	method agregarPlanta(planta){
+
+	method agregarPlanta(planta) {
 		plantasQueSembro.add(planta)
 	}
 
-	method regarLasPlantas(){
+	method regarLasPlantas() {
 		plantasQueSembro.forEach({ i => i.regar()})
 	}
-	
-	method plantasListasParaCosechar(){
-		return plantasQueSembro.filter( { p => p.estaListaParaCosechar() } )
+
+	method plantasListasParaCosechar() {
+		return plantasQueSembro.filter({ p => p.estaListaParaCosechar() })
 	}
-	
-	method cosechar(planta){
+
+	method cosechar(planta) {
 		plantasQueCosecho.add(planta)
 		plantasQueSembro.remove(planta)
 		game.removeVisual(planta)
 	}
-	
-	method cosecharTodo(){
-		self.plantasListasParaCosechar().forEach( { planta => self.cosechar(planta) } )
+
+	method cosecharTodo() {
+		self.plantasListasParaCosechar().forEach({ planta => self.cosechar(planta)})
 	}
-	
-	method venderPlanta(planta){
+
+	method venderPlanta(planta) {
 		monedas += planta.valor()
 		plantasQueCosecho.remove(planta)
 	}
-	
-	method venderCosecha(){
-		plantasQueCosecho.forEach( { planta => self.venderPlanta(planta) } )
+
+	method venderCosecha() {
+		plantasQueCosecho.forEach({ planta => self.venderPlanta(planta)})
 	}
-	method paraCuantosDiasLeAlcanza(){
-		return (monedas + plantasQueCosecho.sum( { p => p.valor() } )) / 200
+
+	method paraCuantosDiasLeAlcanza() {
+		return (monedas + plantasQueCosecho.sum({ p => p.valor() })) / 200
 	}
-	method cuantoHayParaCeliacos(){
-		return self.plantasListasParaCosechar().count( { p => not p.tieneGluten() } )
+
+	method cuantoHayParaCeliacos() {
+		return self.plantasListasParaCosechar().count({ p => not p.tieneGluten() })
 	}
-	
-	method convieneRegar(){
-		return plantasQueSembro.any( { p => not p.estaListaParaCosechar() } )
+
+	method convieneRegar() {
+		return plantasQueSembro.any({ p => not p.estaListaParaCosechar() })
 	}
-	method ofrecerOfrenda(){
+
+	method ofrecerOfrenda() {
 		const c = plantasQueSembro.anyOne()
 		game.removeVisual(c)
-	}
-	/*method borrar(){
-		const c = plantasQueSembro.anyOne()
 		plantasQueSembro.remove(c)
-	}*/
-	method cantidadPlantasSembradas(){
+	}
+
+	method cantidadPlantasSembradas() {
 		return plantasQueSembro.size()
 	}
+
 }
+

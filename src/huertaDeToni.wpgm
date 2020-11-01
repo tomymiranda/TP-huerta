@@ -6,90 +6,82 @@ import pachamama.*
 program huertaDeToni {
 	game.width(15)
 	game.height(15)
-	
-	
-	// Configuramos una imagen de fondo, que se repite para cada celda del tablero.
-	
-	/*
-	 * para pc tomy C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/tierra.png
-	 * 
-	 * para otras pc tierra.png
-	 */
-	//game.ground("tierra.png")
-	
-	// Agregamos al amigo Toni.
+		// Configuramos una imagen de fondo, que se repite para cada celda del tablero.
+	game.ground("tierra.png")
+		// Agregamos al amigo Toni.
 	game.addVisual(toni)
-	
-	
-	/*
-	 * Acá usamos addVisualIn en vez de addVisual, y por esto 
-	 * no es necesario que la pachamama conozca su position.
-	 */
-	game.addVisualIn(pachamama, game.at(0, 13));
-	
-	//esto vino en el archivo base
-	/* 
-	 * Agregamos una fila de maices. Ojo al regar, que Toni no va a conocer
-	 * estas plantas.
-	 * 
-	 * En este ejemplo también usamos addVisualIn, por lo tanto
-	 * el Maiz solo define la imagen.
-	 * 
-	 * De yapa, mostramos cómo agregar varios objetos de una utilizando
-	 * un rango (1..13), que equivale a la lista [1, 2, 3, ..., 13].
-	 */
-
-	keyboard.up().onPressDo { toni.moverArriba() }
-	
-	keyboard.down().onPressDo{  toni.moverAbajo() }
-	
-	keyboard.left().onPressDo{ toni.moverALaIzquierda() }
-	
-	keyboard.right().onPressDo{ toni.moverALaDerecha() }
-	
-	/* duda si al sembrar y agregar, cuando las riegue se vea el cambio en el tablero, tambien la posicion del maiz
-	 * 
-	 * duda sobre var maiz si no habria problemas por el nombre, si se genera un problema, modificar para que se cree sin generar una referencia
-	 */
-	
-	keyboard.m().onPressDo{
-		var maiz = new Maiz()
-		toni.agregarPlanta(maiz)
-		game.addVisualIn(maiz,toni.position())
+		/*
+		 * Acá usamos addVisualIn en vez de addVisual, y por esto 
+		 * no es necesario que la pachamama conozca su position.
+		 */
+	game.addVisualIn(pachamama, game.at(0, 13)) // esto vino en el archivo base
+	keyboard.m().onPressDo{ if (game.colliders(toni).isEmpty()) {
+			var maiz = new Maiz()
+			toni.agregarPlanta(maiz)
+			game.addVisualIn(maiz, toni.position())
+		} else {
+			toni.error("hay mas de una planta")
+		}
 	}
-	
-	keyboard.t().onPressDo{
-		var trigo = new Trigo()
-		toni.agregarPlanta(trigo)
-		game.addVisualIn(trigo,toni.position())
+	keyboard.t().onPressDo{ if (game.colliders(toni).isEmpty()) {
+			var trigo = new Trigo()
+			toni.agregarPlanta(trigo)
+			game.addVisualIn(trigo, toni.position())
+		} else {
+			toni.error("hay mas de una planta")
+		}
 	}
-	
-	keyboard.o().onPressDo{
-		var tomaco = new Tomaco()
-		toni.agregarPlanta(tomaco)
-		game.addVisualIn(tomaco,toni.position())
+	keyboard.o().onPressDo{ if (game.colliders(toni).isEmpty()) {
+			var tomaco = new Tomaco()
+			toni.agregarPlanta(tomaco)
+			game.addVisualIn(tomaco, toni.position())
+		} else {
+			toni.error("hay mas de una planta")
+		}
 	}
-	
-	keyboard.a().onPressDo{toni.regarLasPlantas()}
-
-	keyboard.r().onPressDo{game.colliders(toni).first().regar()}
-	
-	keyboard.x().onPressDo{toni.cosecharTodo() }
-
-	keyboard.c().onPressDo{toni.cosechar(game.colliders(toni).first())}
-	
-	keyboard.v().onPressDo{toni.venderCosecha()}
-	
-	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas"
-		+ " me quedan " + toni.plantasQueCosecho().size() + " plantas para vender"	) }
-	
+	keyboard.up().onPressDo{ toni.moverArriba()
+		if (toni.coordenadaY() >= game.height()) {
+			toni.cambiarCoordenada(toni.coordenadaX(), 0)
+		}
+	}
+	keyboard.down().onPressDo{ toni.moverAbajo()
+		if (toni.coordenadaY() < 0) {
+			toni.cambiarCoordenada(toni.coordenadaX(), game.height() - 1)
+		}
+	}
+	keyboard.left().onPressDo{ toni.moverALaIzquierda()
+		if (toni.coordenadaX() < 0) { toni.cambiarCoordenada(game.width() - 1, toni.coordenadaY()) }
+	}
+	keyboard.right().onPressDo{ toni.moverALaDerecha()
+		if (toni.coordenadaX() >= game.width()) {
+			toni.cambiarCoordenada(0, toni.coordenadaY())
+		}
+	}
+	keyboard.a().onPressDo{ toni.regarLasPlantas() }
+	keyboard.r().onPressDo{ game.colliders(toni).first().regar() }
+	keyboard.x().onPressDo{ toni.cosecharTodo() }
+	keyboard.c().onPressDo{ if (game.colliders(toni).first().estaListaParaCosechar()) {
+			toni.cosechar(game.colliders(toni).first())
+		} else if (not game.colliders(toni).first().estaListaParaCosechar()) {
+			toni.error("la plata no esta lista para cosechar")
+		} else {
+			toni.error("no hay una plata para cosechar")
+		}
+	}
+	keyboard.v().onPressDo{ toni.venderCosecha() }
+	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas" + " me quedan " + toni.plantasQueCosecho().size() + " plantas para vender") }
 	keyboard.f().onPressDo{ pachamama.fumigar() }
-	
 	keyboard.l().onPressDo{ pachamama.llover() }
-	
-	
-	keyboard.y().onPressDo{ game.say(toni, toni.cantidadPlantasSembradas()) }
-	
-	
+	keyboard.y().onPressDo{ game.say(toni, " tengo " + toni.cantidadPlantasSembradas() + " plantas sembradas") }
+		/*game.whenCollideDo(toni, { pachamaEncontrada =>
+		 * 	toni.ofrecerOfrenda()
+		 * 	if (not pachamaEncontrada.estaAgradecida()) {
+		 * 		pachamaEncontrada.agradecidaPorOfrenda()
+		 * 	} else {
+		 * 		toni.regarLasPlantas()
+		 * 	}
+		 * })
+		 * 
+		 */
 	game.start()
 }
