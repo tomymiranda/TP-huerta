@@ -2,6 +2,7 @@ import wollok.game.*
 import toni.*
 import plantas.*
 import pachamama.*
+import mercados.*
 
 program huertaDeToni {
 	game.width(15)

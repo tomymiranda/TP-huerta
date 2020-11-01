@@ -79,12 +79,15 @@ object toni {
 		const algunaPlanta = plantasQueSembro.anyOne()
 		game.removeVisual(algunaPlanta)
 		plantasQueSembro.remove(algunaPlanta)
+		
+		if(not pachamama.estaAgradecida()){
+			pachamama.agradecidaPorOfrenda()
+		}else{
+			self.regarLasPlantas()
+		}
+		
 	}
 
-	/*method borrar(){
-	 * 	const c = plantasQueSembro.anyOne()
-	 * 	plantasQueSembro.remove(c)
-	 }*/
 	method cantidadPlantasSembradas() {
 		return plantasQueSembro.size()
 	}
@@ -93,6 +96,10 @@ object toni {
 		return plantasQueCosecho.size()
 	}
 
+	method valorTotalDeMercaderiaParaVender(){
+		return plantasQueCosecho.sum({i=> i.valor()})
+	}
+	
 	method coordenadaX() {
 		return position.x()
 	}
@@ -105,5 +112,12 @@ object toni {
 		position = game.at(a, b)
 	}
 
+	method venderAMercado(mercado){
+		if(mercado.cantidadDeMonedas() > self.valorTotalDeMercaderiaParaVender() ){
+			mercado.comprarMercaderia()
+		}else{
+			self.error("no esta sobre mercado")
+		}
+	}
 }
 
