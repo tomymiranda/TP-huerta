@@ -26,7 +26,7 @@ class Maiz inherits Plantas {
 	override method image() {
 		// Modificar esto para que la imagen dependa del estado.
 		/* 
-		 * para compu tomy C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/maiz_bebe.png
+		 * 
 		 * 
 		 * maiz_bebe.png
 		 */
@@ -67,7 +67,7 @@ class Trigo inherits Plantas {
 	var etapaDeEvolucion = 0
 
 	/* 
-	 * tomy pc: C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/trigo_0.png 
+	 * 
 	 * 
 	 * en otro lado: trigo_0.png
 	 */

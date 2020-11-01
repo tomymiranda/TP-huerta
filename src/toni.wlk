@@ -16,19 +16,6 @@ object toni {
 	var property plantasQueCosecho = []
 
 	// Pegar acá todo lo que tenían de Toni en la etapa 1
-	
-	method coordenadaX(){
-		return position.x()
-	}
-	
-	method coordenadaY(){
-		return position.y()
-	}
-	
-	method cambiarCoordenada(a,b){
-		position = game.at(a,b)
-	}
-	
 	method moverALaDerecha() {
 		self.position(self.position().right(1))
 	}
@@ -88,14 +75,34 @@ object toni {
 		return plantasQueSembro.any({ p => not p.estaListaParaCosechar() })
 	}
 
-	method ofrecerOfrenda() {
-		const c = plantasQueSembro.anyOne()
-		game.removeVisual(c)
-		plantasQueSembro.remove(c)
+	method ofrecerOfrenda(planta) {
+		const algunaPlanta = plantasQueSembro.anyOne()
+		game.removeVisual(algunaPlanta)
+		plantasQueSembro.remove(algunaPlanta)
 	}
 
+	/*method borrar(){
+	 * 	const c = plantasQueSembro.anyOne()
+	 * 	plantasQueSembro.remove(c)
+	 }*/
 	method cantidadPlantasSembradas() {
 		return plantasQueSembro.size()
+	}
+
+	method cantidadPlantasCosechadas() {
+		return plantasQueCosecho.size()
+	}
+
+	method coordenadaX() {
+		return position.x()
+	}
+
+	method coordenadaY() {
+		return position.y()
+	}
+
+	method cambiarCoordenada(a, b) {
+		position = game.at(a, b)
 	}
 
 }

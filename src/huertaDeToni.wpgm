@@ -15,6 +15,7 @@ program huertaDeToni {
 		 * no es necesario que la pachamama conozca su position.
 		 */
 	game.addVisualIn(pachamama, game.at(0, 13)) // esto vino en el archivo base
+	game.onCollideDo(pachamama, { algunaPlanta => toni.ofrecerOfrenda(algunaPlanta) })
 	keyboard.m().onPressDo{ if (game.colliders(toni).isEmpty()) {
 			var maiz = new Maiz()
 			toni.agregarPlanta(maiz)
@@ -50,7 +51,9 @@ program huertaDeToni {
 		}
 	}
 	keyboard.left().onPressDo{ toni.moverALaIzquierda()
-		if (toni.coordenadaX() < 0) { toni.cambiarCoordenada(game.width() - 1, toni.coordenadaY()) }
+		if (toni.coordenadaX() < 0) {
+			toni.cambiarCoordenada(game.width() - 1, toni.coordenadaY())
+		}
 	}
 	keyboard.right().onPressDo{ toni.moverALaDerecha()
 		if (toni.coordenadaX() >= game.width()) {
@@ -63,25 +66,15 @@ program huertaDeToni {
 	keyboard.c().onPressDo{ if (game.colliders(toni).first().estaListaParaCosechar()) {
 			toni.cosechar(game.colliders(toni).first())
 		} else if (not game.colliders(toni).first().estaListaParaCosechar()) {
-			toni.error("la plata no esta lista para cosechar")
+			toni.error("la planta no esta lista para cosechar")
 		} else {
-			toni.error("no hay una plata para cosechar")
+			toni.error("no hay una planta para cosechar")
 		}
 	}
 	keyboard.v().onPressDo{ toni.venderCosecha() }
-	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas" + " me quedan " + toni.plantasQueCosecho().size() + " plantas para vender") }
+	keyboard.space().onPressDo{ game.say(toni, "tengo " + toni.monedas() + " monedas" + " me quedan " + toni.cantidadPlantasCosechadas() + " plantas para vender") }
 	keyboard.f().onPressDo{ pachamama.fumigar() }
 	keyboard.l().onPressDo{ pachamama.llover() }
 	keyboard.y().onPressDo{ game.say(toni, " tengo " + toni.cantidadPlantasSembradas() + " plantas sembradas") }
-		/*game.whenCollideDo(toni, { pachamaEncontrada =>
-		 * 	toni.ofrecerOfrenda()
-		 * 	if (not pachamaEncontrada.estaAgradecida()) {
-		 * 		pachamaEncontrada.agradecidaPorOfrenda()
-		 * 	} else {
-		 * 		toni.regarLasPlantas()
-		 * 	}
-		 * })
-		 * 
-		 */
 	game.start()
 }
