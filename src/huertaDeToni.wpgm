@@ -80,6 +80,7 @@ program huertaDeToni {
 	keyboard.l().onPressDo{ pachamama.llover() }
 	keyboard.y().onPressDo{ game.say(toni, " tengo " + toni.cantidadPlantasSembradas() + " plantas sembradas") }
 	// rompe aca sino hay una planta para vender
+	
 	keyboard.b().onPressDo{ 
 		if (not game.colliders(toni).size().equals(0)) {
 			toni.venderPlantaAMercado(game.colliders(toni).first())

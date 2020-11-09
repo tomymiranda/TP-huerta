@@ -117,9 +117,14 @@ object toni {
 		 * 	- Parametro "mercado" agregado. Indica cual es el mercado en el cual se va a vender la planta.
 		 * 	- Condicion de poder vender unicamente cuando Toni este parado sobre un mercado o tiene una planta para vender (sino tira el error).
 		 */
-		
-		if (mercado.cantidadMonedas() >= planta.valor() and self.cantidadPlantasCosechadas() > 0) {
+		if(self.cantidadPlantasCosechadas()>0){
 			const planta = plantasQueCosecho.anyOne()
+		}else{
+			self.error("no hay plantas para vender")
+		}
+		
+		if (mercado.cantidadMonedas() >= planta.valor()) {
+			
 			monedas += planta.valor()
 			mercado.nuevaCantidadMonedas(mercado.cantidadMonedas() - planta.valor())
 			mercado.comprarMercaderia(planta)
