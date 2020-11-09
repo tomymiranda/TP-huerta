@@ -2,7 +2,7 @@ import wollok.game.*
 import toni.*
 import plantas.*
 import pachamama.*
-import mercados.*
+import mercado.*
 
 program huertaDeToni {
 	game.width(15)
@@ -15,6 +15,8 @@ program huertaDeToni {
 		 * Acá usamos addVisualIn en vez de addVisual, y por esto 
 		 * no es necesario que la pachamama conozca su position.
 		 */
+	game.addVisual(new Mercado(cantidadMonedas = 600, position = game.at(7, 13)))
+	game.addVisual(new Mercado(cantidadMonedas = 600, position = game.at(7, 1)))
 	game.addVisualIn(pachamama, game.at(0, 13)) // esto vino en el archivo base
 	game.onCollideDo(pachamama, { algunaPlanta => toni.ofrecerOfrenda(algunaPlanta) })
 	keyboard.m().onPressDo{ if (game.colliders(toni).isEmpty()) {
@@ -77,5 +79,27 @@ program huertaDeToni {
 	keyboard.f().onPressDo{ pachamama.fumigar() }
 	keyboard.l().onPressDo{ pachamama.llover() }
 	keyboard.y().onPressDo{ game.say(toni, " tengo " + toni.cantidadPlantasSembradas() + " plantas sembradas") }
+	// rompe aca sino hay una planta para vender
+	keyboard.b().onPressDo{ 
+		if (not game.colliders(toni).size().equals(0)) {
+			toni.venderPlantaAMercado(game.colliders(toni).first())
+		} else if (game.colliders(toni).size().equals(0)) {
+			toni.error("no estoy parado sobre un mercado")
+		} else if (toni.cantidadPlantasCosechadas().equals(0)) {
+			toni.error("no tengo una planta para vender")
+		} else {
+			toni.error("el mercado no tiene plata")
+		}
+	}
+	keyboard.n().onPressDo{ if (not game.colliders(toni).size().equals(0)) {
+			toni.venderCosechaAMercado(game.colliders(toni).first())
+		} else if (game.colliders(toni).size().equals(0)) {
+			toni.error("no estoy parado sobre un mercado")
+		} else if (toni.cantidadPlantasCosechadas().equals(0)) {
+			toni.error("no tengo una planta para vender")
+		} else {
+			toni.error("el mercado no tiene plata")
+		}
+	}
 	game.start()
 }

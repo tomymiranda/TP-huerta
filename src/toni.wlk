@@ -1,6 +1,7 @@
 import wollok.game.*
 import plantas.*
 import pachamama.*
+import mercado.*
 
 object toni {
 
@@ -79,13 +80,11 @@ object toni {
 		const algunaPlanta = plantasQueSembro.anyOne()
 		game.removeVisual(algunaPlanta)
 		plantasQueSembro.remove(algunaPlanta)
-		
-		if(not pachamama.estaAgradecida()){
+		if (not pachamama.estaAgradecida()) {
 			pachamama.agradecidaPorOfrenda()
-		}else{
+		} else {
 			self.regarLasPlantas()
 		}
-		
 	}
 
 	method cantidadPlantasSembradas() {
@@ -96,10 +95,10 @@ object toni {
 		return plantasQueCosecho.size()
 	}
 
-	method valorTotalDeMercaderiaParaVender(){
-		return plantasQueCosecho.sum({i=> i.valor()})
+	method valorTotalDeMercaderiaParaVender() {
+		return plantasQueCosecho.sum({ i => i.valor() })
 	}
-	
+
 	method coordenadaX() {
 		return position.x()
 	}
@@ -112,12 +111,33 @@ object toni {
 		position = game.at(a, b)
 	}
 
-	method venderAMercado(mercado){
-		if(mercado.cantidadDeMonedas() > self.valorTotalDeMercaderiaParaVender() ){
-			mercado.comprarMercaderia()
-		}else{
-			self.error("no esta sobre mercado")
+	method venderPlantaAMercado(mercado) {
+		// MODIFICAR: Hacer que solo pueda vender si está sobre en el mercado.
+		/*Modificaciones hechas:
+		 * 	- Parametro "mercado" agregado. Indica cual es el mercado en el cual se va a vender la planta.
+		 * 	- Condicion de poder vender unicamente cuando Toni este parado sobre un mercado o tiene una planta para vender (sino tira el error).
+		 */
+		
+		if (mercado.cantidadMonedas() >= planta.valor() and self.cantidadPlantasCosechadas() > 0) {
+			const planta = plantasQueCosecho.anyOne()
+			monedas += planta.valor()
+			mercado.nuevaCantidadMonedas(mercado.cantidadMonedas() - planta.valor())
+			mercado.comprarMercaderia(planta)
+			plantasQueCosecho.remove(planta)
+		} else {
+			self.error("No estoy en el Mercado o no tengo ninguna planta para vender")
 		}
 	}
+
+	method venderCosechaAMercado(mercado) {
+		if (self.cantidadPlantasCosechadas() > 0) {
+			mercado.nuevaCantidadMonedas(self.valorTotalDeMercaderiaParaVender())
+			mercado.comprarMercaderiaEnCantidad(self.plantasQueCosecho())
+			plantasQueCosecho.removeAll(plantasQueCosecho)
+		}else{
+			self.error("no hay platas para vender")
+		}
+	}
+
 }
 
