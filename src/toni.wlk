@@ -126,7 +126,7 @@ object toni {
 		if (mercado.cantidadMonedas() >= planta.valor()) {
 			
 			monedas += planta.valor()
-			mercado.nuevaCantidadMonedas(mercado.cantidadMonedas() - planta.valor())
+			mercado.nuevaCantidadMonedas((mercado.cantidadMonedas() - planta.valor()).max(0))
 			mercado.comprarMercaderia(planta)
 			plantasQueCosecho.remove(planta)
 		} else {
