@@ -19,6 +19,8 @@ program huertaDeToni {
 	game.addVisual(new Mercado(cantidadMonedas = 600, position = game.at(7, 1)))
 	game.addVisualIn(pachamama, game.at(0, 13)) // esto vino en el archivo base
 	game.onCollideDo(pachamama, { algunaPlanta => toni.ofrecerOfrenda(algunaPlanta) })
+	
+	// se agregan los comandos para agregar plantas
 	keyboard.m().onPressDo{ if (game.colliders(toni).isEmpty()) {
 			var maiz = new Maiz()
 			toni.agregarPlanta(maiz)
@@ -43,6 +45,8 @@ program huertaDeToni {
 			toni.error("hay mas de una planta")
 		}
 	}
+	
+	// se agregan los comandos para moverse
 	keyboard.up().onPressDo{ toni.moverArriba()
 		if (toni.coordenadaY() >= game.height()) {
 			toni.cambiarCoordenada(toni.coordenadaX(), 0)
@@ -63,6 +67,7 @@ program huertaDeToni {
 			toni.cambiarCoordenada(0, toni.coordenadaY())
 		}
 	}
+	// se agregan los comandos para acciones
 	keyboard.a().onPressDo{ toni.regarLasPlantas() }
 	keyboard.r().onPressDo{ game.colliders(toni).first().regar() }
 	keyboard.x().onPressDo{ toni.cosecharTodo() }
@@ -79,7 +84,7 @@ program huertaDeToni {
 	keyboard.f().onPressDo{ pachamama.fumigar() }
 	keyboard.l().onPressDo{ pachamama.llover() }
 	keyboard.y().onPressDo{ game.say(toni, " tengo " + toni.cantidadPlantasSembradas() + " plantas sembradas") }
-	// rompe aca sino hay una planta para vender
+	
 	
 	keyboard.b().onPressDo{ 
 		if (not game.colliders(toni).size().equals(0)) {
