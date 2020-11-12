@@ -15,7 +15,7 @@ object pachamama {
 
 	method llover() {
 		nivelAgradecimiento += 5
-	} // puede ser de toni
+	} 
 
 	method fumigar() {
 		nivelAgradecimiento = 0

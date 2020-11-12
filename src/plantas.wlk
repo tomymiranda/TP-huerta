@@ -1,35 +1,28 @@
 import wollok.game.*
 import pachamama.*
 
-//Puede crearse una super clase 'planta' para que las demas plantas hereden sus atributos.
 class Plantas {
 
 	var property madrePacha = pachamama
 
+	/*retorna si esta lista para cosechar */	
 	method estaListaParaCosechar()
-
+	/*riega la planta */
 	method regar()
-
+	/*retorna el valor de la planta */
 	method valor()
-
+	/*retorna si tiene gluten */
 	method tieneGluten() = false
-
+	/*retorna la imagen */	
 	method image()
 
 }
 
 class Maiz inherits Plantas {
 
-// se baso a que cada planta tiene una foto distinta dependiendo del riego
 	var property esBebe = true
 
 	override method image() {
-		// Modificar esto para que la imagen dependa del estado.
-		/* 
-		 * 
-		 * 
-		 * maiz_bebe.png
-		 */
 		return if (self.esBebe()) {
 			"maiz_bebe.png"
 		} else {
@@ -37,12 +30,6 @@ class Maiz inherits Plantas {
 		}
 	}
 
-	/* 
-	 * comentario1: el ejercicio dice que se genera ganancia por la venta asique cada una debe tener una
-	 * 
-	 * comentario2: los metodos de aca para abajo los podriamos hacer con herencia ya que son iguales para los 3 porq son plantas,
-	 * 				sino no hace falta 
-	 */
 	override method regar() {
 		esBebe = false
 	}
@@ -61,16 +48,10 @@ class Maiz inherits Plantas {
 
 }
 
-// Agregar las demás plantas y completar el Maiz.
 class Trigo inherits Plantas {
 
 	var etapaDeEvolucion = 0
 
-	/* 
-	 * 
-	 * 
-	 * en otro lado: trigo_0.png
-	 */
 	override method image() {
 		if (etapaDeEvolucion == 0) {
 			return "trigo_0.png"
@@ -114,11 +95,6 @@ class Trigo inherits Plantas {
 
 class Tomaco inherits Plantas {
 
-	/* 
-	 * en pc tomy: C:/Users/Usuario/Desktop/Unahur/PO1/git/TP-huerta/assets/tomaco_ok.png
-	 * 
-	 * en otra pc: tomaco_ok.png
-	 */
 	override method regar() {
 	}
 
